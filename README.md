@@ -12,4 +12,4 @@ Mac
 4. Build app on your device
 5. Enjoy this app!
 # Things to know
-If you don't have [Apple Developer](https://developer.apple.com) account, this app will alive for a week
+If you don't have [Apple Developer](https://developer.apple.com) account, this app will live for a week
