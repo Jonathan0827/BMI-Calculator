@@ -13,4 +13,5 @@ Mac
 5. Enjoy this app!
 # Things to know
 If you don't have [Apple Developer](https://developer.apple.com) account, this app will live for a week.
+<br>
 Don't even think to post this on your blog as if this app was made by you.
