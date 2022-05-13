@@ -11,6 +11,7 @@ struct normalWeight: View {
         Text("정상")
             .font(.largeTitle)
             .fontWeight(.bold)
+        Text("유지 하여라")
     }
 }
 struct overWeight: View {
@@ -18,19 +19,22 @@ struct overWeight: View {
         Text("비만")
             .font(.largeTitle)
             .fontWeight(.bold)
+        Text("살을 빼도록 하여라")
     }
 }
 struct whoMadeThis: View {
     var body: some View{
-        VStack{
-            Image(systemName: "person.fill")
-                .font(.system(size: 100))
-            Text("App made by Jonathan (임준협).")
-                .font(.title2)
-                .fontWeight(.medium)
-            Text(.init("Visit his GitHub! [Jonathan0827](https://github.com/Jonathan0827)"))
+        NavigationView{
+            VStack{
+                Image(systemName: "person.fill")
+                    .font(.system(size: 100))
+                Text("App made by Jonathan (임준협).")
+                    .font(.title2)
+                    .fontWeight(.medium)
+                Text(.init("Visit his GitHub! [Jonathan0827](https://github.com/Jonathan0827)"))
+                    
                 
-                
+            }.navigationTitle(Text("Maker"))
         }
     }
 }
@@ -42,42 +46,42 @@ struct calculationView: View {
     @State var oWeight = false
     @State var nWeight = false
     var body: some View {
-        VStack {
-            Text("\(weight*10000/(height*height))")
-            Text("Weight: \(weight)kg")
-                .font(.largeTitle)
-            Picker("Weight", selection: $weight) {
-                ForEach(1...200, id: \.self) {weight in
-                    Text("\(weight)")
+        NavigationView{
+            VStack {
+                Text("Weight: \(weight)kg")
+                    .font(.largeTitle)
+                    .padding(.top)
+                    
+                Picker("Weight", selection: $weight) {
+                    ForEach(1...200, id: \.self) {weight in
+                        Text("\(weight)")
+                    }
+                }.pickerStyle(WheelPickerStyle())
+                Text("Height: \(height)cm")
+                    .font(.largeTitle)
+                Picker("Height", selection: $height) {
+                    ForEach(1...200, id: \.self) {height in
+                        Text("\(height)")
+                    }
+                }.pickerStyle(WheelPickerStyle())
+                Button("Calculate") {
+                    nWeight = false
+                    oWeight = false
+                    if weight*10000/(height*height) < 23{
+                        nWeight = true
+                    } else {
+                        oWeight = true
+                    }
+                }.sheet(isPresented: $oWeight){
+                    overWeight()
+                }.sheet(isPresented: $nWeight){
+                    normalWeight()
                 }
-            }.pickerStyle(WheelPickerStyle())
-            Text("Height: \(height)cm")
-                .font(.largeTitle)
-            Picker("Height", selection: $height) {
-                ForEach(1...200, id: \.self) {height in
-                    Text("\(height)")
                 }
-            }.pickerStyle(WheelPickerStyle())
-//            Text("\((weight/(height*height)))")
-            Button("Calculate") {
-                nWeight = false
-                oWeight = false
-                if weight*10000/(height*height) < 23{
-                    nWeight = true
-                } else {
-                    oWeight = true
-                }
-            }.sheet(isPresented: $oWeight){
-                overWeight()
-            }.sheet(isPresented: $nWeight){
-                normalWeight()
-            }
-            }
-        
+            .navigationTitle(Text("Calculation"))
         }
     }
-
-
+}
 struct ContentView: View{
     var body: some View{
         TabView{
@@ -92,8 +96,9 @@ struct ContentView: View{
                     Text("Who made this?")
                 }
             }
+        }
     }
-}
+
         
     
 
